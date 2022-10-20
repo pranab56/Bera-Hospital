@@ -1,0 +1,14 @@
+.testimonial{
+    margin-top: 100px;
+    
+}
+.patients{
+    display: flex;
+    justify-content: space-between;
+}
+.quotesvg img{
+    width: 170px;
+    height: 120px;
+    display: flex;
+    
+}

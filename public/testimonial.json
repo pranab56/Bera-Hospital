@@ -1,0 +1,23 @@
+[
+    {
+        "id":"1",
+        "name": "Leanne Graham",
+        "city": "Gwenborough",
+        "img":"https://i.ibb.co/TYt9tR6/people1.png",
+        "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nisi quis aperiam accusantium quo quam obcaecati corrupti eos, quia similique."
+    },
+    {
+        "id":"2",
+        "name": "Ervin Howell",
+        "city": "Wisokyburgh",
+        "img":"https://i.ibb.co/vkQgbKV/people2.png",
+        "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nisi quis aperiam accusantium quo quam obcaecati corrupti eos, quia similique."
+    },
+    {
+        "id":"3",
+        "name": "Clementine Bauch",
+        "city": "McKenziehaven",
+        "img":"https://i.ibb.co/W0QPs5h/people3.png",
+        "title":"Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi nisi quis aperiam accusantium quo quam obcaecati corrupti eos, quia similique."
+    }
+]
