@@ -1,21 +1,33 @@
-import React from "react";
-import { useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import {useSignInWithEmailAndPassword, useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase.init";
 import Loading from "../../Share/Loading";
+
+
 
 const Login = () => {
   const [signInWithGoogle,gUser, gLoading, gError] = useSignInWithGoogle(auth);
   const [signInWithEmailAndPassword,user,loading,error,] = useSignInWithEmailAndPassword(auth);
   const {register,formState: { errors },handleSubmit,} = useForm();
+
+
+  const navigate=useNavigate()
+  const location = useLocation();
+  
+  const  from  = location.state?.from?.pathname || "/";
+
   if (user||gUser) {
-    console.log(user);
+    navigate(from,{replace:true})
   }
-  const onSubmit = (data) => {
+  const onSubmit =(data) => {
     console.log(data);
-    signInWithEmailAndPassword(data.email,data.password)
+    signInWithEmailAndPassword(data.email,data.password);
+  
   };
+
+
   if (loading || gLoading) {
     return <Loading></Loading>
   }
@@ -23,6 +35,7 @@ const Login = () => {
   if(error || gError){
     ErrorSignIn=<p className="text-red-600">{error.message || gError.message}</p>
   }
+
 
   return (
     <div className="w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -45,6 +58,7 @@ const Login = () => {
           </label>
           <input
             type="email"
+            
             placeholder="Please your email"
             // react from hooks theke vailded kora 
             {...register("email",{
@@ -97,12 +111,16 @@ const Login = () => {
         </div>
 
         {ErrorSignIn}
+
+        <Link to={'/resetPassword'} class="btn btn-link text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500 text-primary"><small>Forget Password?</small></Link>
+
         <div className="mt-10">
           <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
             Login
           </button>
         </div>
       </form>
+      
       </div>
       <div className="divider">OR</div>
       <button

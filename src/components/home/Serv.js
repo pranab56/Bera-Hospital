@@ -3,7 +3,6 @@ import React from 'react';
 
 const Serv = ({service}) => {
     const {img,name,job}=service;
-    console.log(service);
     return (
         <div>
              <div className='ml-8 mb-10 mt-14'>

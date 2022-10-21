@@ -1,7 +1,14 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../firebase.init';
 
 const Header = () => {
+    const [user, loading, error] = useAuthState(auth);
+    const logOut=()=>{
+        signOut(auth)
+    }
     return (
         <nav x-data="{ isOpen: false }" className="relative bg-white shadow dark:bg-gray-800">
     <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
@@ -32,7 +39,7 @@ const Header = () => {
                 <Link to={'/appointment'} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">Appointment</Link>
                 <Link to={'/review'} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">Reviews</Link>
                 <Link to={'/contact'} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">Contact us</Link>
-                <Link to={'/login'} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">Login</Link>
+                {user ? <button onClick={logOut} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">sign Out</button> : <Link to={'/login'} className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">Login</Link>}
             </div>
 
             

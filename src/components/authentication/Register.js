@@ -1,26 +1,34 @@
-import React from 'react';
-import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+
+import React, { useState } from 'react';
+import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
 import Loading from '../../Share/Loading';
 
 const Register = () => {
+  const [agree,setAgree]=useState(false)
   const {register,formState: { errors },handleSubmit,} = useForm();
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
   const [
     createUserWithEmailAndPassword,
     user,
     loading,
     error,
-  ] = useCreateUserWithEmailAndPassword(auth);
+  ] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification:true});
+  const navigate=useNavigate()
   if (user) {
     console.log(user);
   }
-  const onSubmit = (data) => {
-    console.log(data);
-    createUserWithEmailAndPassword(data.email,data.password)
+  const onSubmit =async (data) => {
+    if(data.checkbox){
+      await createUserWithEmailAndPassword(data.email,data.password)
+      await updateProfile({ displayName:data.name })
+      navigate('/appointment')
+    }
+
   };
-  if (loading) {
+  if (loading || updating) {
     return <Loading></Loading>
   }
   let ErrorSignIn;
@@ -126,8 +134,25 @@ const Register = () => {
         </div>
 
         {ErrorSignIn}
+
+        <div class="flex items-start mb-6 mt-4">
+    <div class="flex items-center h-5">
+      <input onClick={()=>setAgree(!agree)} 
+      {...register("checkbox",{
+        required:{
+          value:true,
+          message:'checkbox is required'
+        },
+      })} 
+      id="remember" type="checkbox" value="" class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required/>
+    </div>
+    <label for="remember" class={agree ? "text-primary ml-2 text-sm font-medium":"ml-2 text-sm font-medium text-gray-900"}>terms and conditions</label>
+    {errors.checkbox?.type === 'required' && <p className="text-red-500">{errors.checkbox.message}</p>}
+  </div>
+
+
         <div className="mt-10">
-          <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
+          <button disabled={!agree} className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
             Register
           </button>
         </div>
