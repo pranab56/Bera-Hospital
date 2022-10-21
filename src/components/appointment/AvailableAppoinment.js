@@ -23,7 +23,7 @@ const AvailableAppoinment = ({selected}) => {
                     setBooking={setBooking}
                     ></AvailableAppoinments>)
                 }
-                {booking && <Modal selected={selected} booking={booking}></Modal>}
+                {booking && <Modal selected={selected} setBooking={setBooking} booking={booking}></Modal>}
             </div>
         </div>
     );
