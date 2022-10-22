@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmetjs from '../../Share/Helmetjs';
 import AdressCart from './AdressCart';
 import AppoinmentDay from './AppoinmentDay';
 import ConatactUs from './ConatactUs';
@@ -12,6 +13,7 @@ import Testimonial from './Testimonial';
 const Home = () => {
     return (
         <div> 
+           <Helmetjs helmet="Home"></Helmetjs>
             <Headers></Headers>
             <AdressCart></AdressCart>
             <Service></Service>

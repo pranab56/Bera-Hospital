@@ -4,6 +4,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import Helmetjs from '../../Share/Helmetjs';
 import Loading from '../../Share/Loading';
 
 const Register = () => {
@@ -37,6 +38,7 @@ const Register = () => {
   }
     return (
         <div className="w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+          <Helmetjs helmet="Sign-Up"></Helmetjs>
         <div className="px-6 py-4">
             <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">Bera Hospital</h2>
     

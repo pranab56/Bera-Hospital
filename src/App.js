@@ -10,6 +10,7 @@ import ResetPassword from './components/authentication/ResetPassword';
 import Contact from './components/contact/Contact';
 import Header from './components/home/Header';
 import Home from './components/home/Home';
+import Review from './components/reviews/Review';
 
 
 
@@ -19,14 +20,21 @@ function App() {
       <Header></Header>
       <Routes>
       
-      <Route path='/' element={<Home></Home>}></Route>
-      <Route path='/home' element={<Home></Home>}></Route>
+      <Route path='/' element={
+      <RequireAuth>
+        <Home></Home>
+      </RequireAuth>}></Route>
+      <Route path='/home' element={
+      <RequireAuth>
+        <Home></Home>
+      </RequireAuth>}></Route>
       <Route path='/about' element={<About></About>}></Route>
       <Route path='/resetPassword' element={<ResetPassword></ResetPassword>}></Route>
       <Route path='/appointment' element={
       <RequireAuth>
         <Appointment></Appointment>
       </RequireAuth>}></Route>
+      <Route path='/review' element={<Review></Review>}></Route>
       <Route path='/contact' element={<Contact></Contact>}></Route>
       <Route path='/login' element={<Login></Login>}></Route>
       <Route path='/register' element={<Register></Register>}></Route>

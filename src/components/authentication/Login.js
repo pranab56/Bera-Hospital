@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import auth from "../../firebase.init";
 import Loading from "../../Share/Loading";
+import Helmetjs from "../../Share/Helmetjs";
 
 
 
@@ -38,7 +39,9 @@ const Login = () => {
 
 
   return (
+    
     <div className="w-full max-w-md mx-auto overflow-hidden bg-white rounded-lg shadow-md dark:bg-gray-800">
+      <Helmetjs helmet="Login"></Helmetjs>
       <div className="px-6 py-4">
         <h2 className="text-3xl font-bold text-center text-gray-700 dark:text-white">
           Bera Hospital
