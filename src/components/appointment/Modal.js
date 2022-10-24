@@ -1,19 +1,23 @@
 import { format } from 'date-fns';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import auth from '../../firebase.init';
 
-const Modal = ({selected,setBooking ,booking}) => {
+const Modal = ({selected,setBooking ,booking,refetch}) => {
     const {name,slots}=booking;
+    const [user] = useAuthState(auth);
 
     const handleFromSubmit=e=>{
         e.preventDefault()
+        const date=format(selected,'PP')
         const DantalName=e.target.DantalName.value;
         const slot=e.target.slot.value;
-        const name=e.target.name.value;
+        const name=user.displayName;
+        const email=user.email;
         const number=e.target.number.value;
-        const email=e.target.email.value;
-        const modalFrom={DantalName,slot,name,number,email};
+        const modalFrom={date,DantalName,slot,name,email,number};
         e.target.reset()
         
         
@@ -27,13 +31,15 @@ const Modal = ({selected,setBooking ,booking}) => {
 })
   .then((response) => response.json())
   .then((data) => {
-    if(data.acknowledged===true){
-        setBooking(null)
-        toast.success(`Booking Appoinment ${name} Done`)
+    if(data.success){
+      toast.success(`your appoinment ${slot} and ${date}`)
+      refetch()
+      setBooking(null)
     }
     else{
-      toast.error(`you are all ready booking ${name}`)
+      toast.error(`you have allready appoinment this date ${date}`)
     }
+    
   })
         
     }
@@ -57,20 +63,25 @@ const Modal = ({selected,setBooking ,booking}) => {
                         
         
     <label className="block mt-3" for="name">
-                            <input type="text" name="name" id="name" placeholder="Your Name" className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required />
+                            <input type="text" name="name" id="name" placeholder="Your Name" value={user?.displayName}
+                            disabled
+                            className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required />
                         </label>
+
+                        <label className="block mt-3" for="email">
+                            <input type="email" disabled value={user?.email} name="email" id="email" placeholder="Your Email" className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required />
+                        </label>
+
     <label className="block mt-3" for="number">
                             <input type="number" name="number" id="number" placeholder="Your Phone Number" className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required/>
                         </label>
-    <label className="block mt-3" for="email">
-                            <input type="email" name="email" id="email" placeholder="Your Email" className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required />
-                        </label>
+   
                        
 
-    <label className="modal-action">
+    <label className="modal-action flex justify-center">
     <label htmlFor="booking-modal" className="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
     
-        <input className='btn btn-success text-white' type="submit" value="submit" />
+        <input className='btn btn-success px-16 text-white ' type="submit" value="Booking" />
   
     </label>
     </form>

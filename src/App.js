@@ -8,6 +8,9 @@ import Register from './components/authentication/Register';
 import RequireAuth from './components/authentication/RequireAuth';
 import ResetPassword from './components/authentication/ResetPassword';
 import Contact from './components/contact/Contact';
+import DashBoard from './components/Dashboard/DashBoard';
+import MyAppoinment from './components/Dashboard/MyAppoinment';
+import MyReview from './components/Dashboard/MyReview';
 import Header from './components/home/Header';
 import Home from './components/home/Home';
 import Review from './components/reviews/Review';
@@ -34,6 +37,15 @@ function App() {
       <RequireAuth>
         <Appointment></Appointment>
       </RequireAuth>}></Route>
+      <Route path='/dashBoard' element={
+      <RequireAuth>
+        <DashBoard></DashBoard>
+      </RequireAuth>}>
+
+      <Route index element={<MyAppoinment></MyAppoinment>}></Route>
+          <Route path='myReview' element={<MyReview></MyReview>}></Route>
+
+      </Route>
       <Route path='/review' element={<Review></Review>}></Route>
       <Route path='/contact' element={<Contact></Contact>}></Route>
       <Route path='/login' element={<Login></Login>}></Route>
