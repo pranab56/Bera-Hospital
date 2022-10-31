@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import auth from "../../firebase.init";
 import Loading from "../../Share/Loading";
 import Helmetjs from "../../Share/Helmetjs";
+import useToken from "../../Hooks/useToken";
 
 
 
@@ -19,11 +20,15 @@ const Login = () => {
   
   const  from  = location.state?.from?.pathname || "/";
 
-  if (user||gUser) {
+
+  const [token]=useToken(user||gUser)
+  if(token){
     navigate(from,{replace:true})
   }
+
+
+ 
   const onSubmit =(data) => {
-    console.log(data);
     signInWithEmailAndPassword(data.email,data.password);
   
   };
@@ -115,7 +120,7 @@ const Login = () => {
 
         {ErrorSignIn}
 
-        <Link to={'/resetPassword'} class="btn btn-link text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500 text-primary"><small>Forget Password?</small></Link>
+        <Link to={'/resetPassword'} className="btn btn-link text-sm text-gray-600 dark:text-gray-200 hover:text-gray-500 text-primary"><small>Forget Password?</small></Link>
 
         <div className="mt-10">
           <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">

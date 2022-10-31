@@ -10,7 +10,7 @@ const Tesmonials = ({user}) => {
     
         <h2 className="mt-2 text-2xl font-semibold text-gray-800 dark:text-white md:mt-0 md:text-3xl">{name}</h2>
         <div className="flex justify-start mt-4">
-            <p className="text-xl font-medium text-blue-600 dark:text-blue-300" tabindex="0" role="link">{city}</p>
+            <p className="text-xl font-medium text-blue-600 dark:text-blue-300" tabIndex="0" role="link">{city}</p>
         </div>
     
         <p className="mt-2 text-gray-600 dark:text-gray-200">{title}</p>

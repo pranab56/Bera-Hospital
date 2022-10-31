@@ -14,7 +14,34 @@ const MyAppoinment = () => {
     },[])
     return (
         <div>
-            <h3>this is MyAppoinment {appoinments.length}</h3>
+            <div className="overflow-x-auto">
+  <table className="table w-full mt-5">
+    
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Tretment</th>
+        <th>slots</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {
+        appoinments.map((a,index)=><tr>
+            <th>{index+1}</th>
+            <td>{a.name}</td>
+            <td>{a.DantalName}</td>
+            <td>{a.slot}</td>
+            <td>{a.date}</td>
+          </tr>)
+      }
+      
+     
+    </tbody>
+  </table>
+</div>
         </div>
     );
 };

@@ -4,6 +4,7 @@ import { useCreateUserWithEmailAndPassword, useUpdateProfile } from 'react-fireb
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import useToken from '../../Hooks/useToken';
 import Helmetjs from '../../Share/Helmetjs';
 import Loading from '../../Share/Loading';
 
@@ -18,9 +19,15 @@ const Register = () => {
     error,
   ] = useCreateUserWithEmailAndPassword(auth,{sendEmailVerification:true});
   const navigate=useNavigate()
-  if (user) {
-    console.log(user);
+  // if (user) {
+  //   console.log(user);
+  // }
+
+  const [token]=useToken(user)
+  if(token){
+    
   }
+
   const onSubmit =async (data) => {
     if(data.checkbox){
       await createUserWithEmailAndPassword(data.email,data.password)
@@ -137,8 +144,8 @@ const Register = () => {
 
         {ErrorSignIn}
 
-        <div class="flex items-start mb-6 mt-4">
-    <div class="flex items-center h-5">
+        <div className="flex items-start mb-6 mt-4">
+    <div className="flex items-center h-5">
       <input onClick={()=>setAgree(!agree)} 
       {...register("checkbox",{
         required:{
@@ -146,9 +153,9 @@ const Register = () => {
           message:'checkbox is required'
         },
       })} 
-      id="remember" type="checkbox" value="" class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required/>
+      id="remember" type="checkbox" value="" className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required/>
     </div>
-    <label for="remember" class={agree ? "text-primary ml-2 text-sm font-medium":"ml-2 text-sm font-medium text-gray-900"}>terms and conditions</label>
+    <label htmlFor="remember" className={agree ? "text-primary ml-2 text-sm font-medium":"ml-2 text-sm font-medium text-gray-900"}>terms and conditions</label>
     {errors.checkbox?.type === 'required' && <p className="text-red-500">{errors.checkbox.message}</p>}
   </div>
 

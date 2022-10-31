@@ -18,6 +18,8 @@ const Modal = ({selected,setBooking ,booking,refetch}) => {
         const email=user.email;
         const number=e.target.number.value;
         const modalFrom={date,DantalName,slot,name,email,number};
+
+        // ইনপুট ফিল্ড কে ক্লিয়ার করার জন্য।
         e.target.reset()
         
         
@@ -52,7 +54,7 @@ const Modal = ({selected,setBooking ,booking,refetch}) => {
   <div className="modal-box">
     <h3 className="font-bold text-lg">Your Appoinment {format(selected, 'PP')}</h3>
     <form onSubmit={handleFromSubmit}>
-    <label className="block mt-3" for="text">
+    <label className="block mt-3" htmlFor="text">
                             <input type="text" name="DantalName" id="text" value={name} disabled className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" />
                         </label>
                         <select className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300 mt-3" name="slot" id="">
@@ -62,17 +64,17 @@ const Modal = ({selected,setBooking ,booking,refetch}) => {
                         </select>
                         
         
-    <label className="block mt-3" for="name">
+    <label className="block mt-3" htmlFor="name">
                             <input type="text" name="name" id="name" placeholder="Your Name" value={user?.displayName}
                             disabled
                             className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required />
                         </label>
 
-                        <label className="block mt-3" for="email">
+                        <label className="block mt-3" htmlFor="email">
                             <input type="email" disabled value={user?.email} name="email" id="email" placeholder="Your Email" className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required />
                         </label>
 
-    <label className="block mt-3" for="number">
+    <label className="block mt-3" htmlFor="number">
                             <input type="number" name="number" id="number" placeholder="Your Phone Number" className="block w-full px-4 py-3 text-sm text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:focus:border-blue-300" required/>
                         </label>
    
